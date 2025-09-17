@@ -9,7 +9,6 @@ import (
 	"github.com/stretchr/testify/mock"
 )
 
-// MockRepo нужен для юнит-тестов WalletService
 type MockRepo struct {
 	mock.Mock
 }

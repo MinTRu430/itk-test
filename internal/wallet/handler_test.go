@@ -13,9 +13,6 @@ import (
 	"github.com/stretchr/testify/mock"
 )
 
-// -----------------
-// Мок сервиса
-// -----------------
 type MockService struct {
 	mock.Mock
 }
@@ -30,9 +27,6 @@ func (m *MockService) GetBalance(ctx context.Context, walletID uuid.UUID) (int64
 	return args.Get(0).(int64), args.Error(1)
 }
 
-// -----------------
-// Тесты Handler
-// -----------------
 func TestWalletHandler(t *testing.T) {
 	wid := uuid.New()
 	svc := new(MockService)
@@ -100,9 +94,6 @@ func TestWalletHandler(t *testing.T) {
 		assert.Equal(t, http.StatusBadRequest, w.Code)
 	})
 
-	// -----------------
-	// GET /api/v1/wallets/{id}
-	// -----------------
 	t.Run("GET /api/v1/wallets/{id} - success", func(t *testing.T) {
 		svc.On("GetBalance", mock.Anything, wid).Return(int64(500), nil).Once()
 

@@ -45,7 +45,6 @@ func (h *WalletHandler) RegisterRoutes(mux *http.ServeMux) {
 	mux.HandleFunc("/api/v1/wallets/", h.GetBalance)
 }
 
-// PostOperation handles POST /api/v1/wallet
 func (h *WalletHandler) PostOperation(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		writeJSONError(w, http.StatusMethodNotAllowed, "method not allowed")
@@ -97,14 +96,13 @@ func (h *WalletHandler) GetBalance(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// path is like "/api/v1/wallets/{id}" or "/api/v1/wallets/{id}/"
 	prefix := "/api/v1/wallets/"
 	if !strings.HasPrefix(r.URL.Path, prefix) {
 		writeJSONError(w, http.StatusNotFound, "not found")
 		return
 	}
 	id := strings.TrimPrefix(r.URL.Path, prefix)
-	// remove trailing slash if any
+
 	id = strings.TrimSuffix(id, "/")
 
 	if id == "" {
